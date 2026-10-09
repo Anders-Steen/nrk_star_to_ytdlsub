@@ -3,6 +3,8 @@ name = "nrk-star-to-ytdlsub"
 version = "0.1.0"
 description = "Sync NRK TV/Radio favourites to a ytdl-sub subscriptions file"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "Anders Steen", email = "anders@accountflow.no" }
 ]
