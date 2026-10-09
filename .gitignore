@@ -1,0 +1,16 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# ytdl-sub subscriptions / generated output (personal, deployment-specific)
+*.yaml
+*.yml
+!examples/*.yaml
+!examples/*.yml

@@ -1,0 +1,32 @@
+# ytdl-sub config defining the "NRK TV Show" preset that
+# `nrk-star-to-ytdlsub sync` references by default.
+#
+# Keep player-specific bits here so the generated subscription file stays
+# trivial (just "<show>": "<url>" entries). To target another player, swap the
+# base preset below (e.g. "Emby TV Show by Date"; Emby reuses the Jellyfin
+# preset, "Plex TV Show by Date").
+#
+# Run:
+#   nrk-star-to-ytdlsub sync --out nrk_subs.yml
+#   ytdl-sub -c examples/ytdl-sub-config.yaml sub nrk_subs.yml
+#
+# NRK's yt-dlp extractor provides real `season_number`/`episode_number`, so we
+# build on `jellyfin_tv_show_by_date` (Jellyfin NFO/artwork, but no date-based
+# season shadowing) and only derive the zero-padded variants the TV-show presets
+# expect. This keeps NRK's own seasons/episodes instead of upload dates.
+
+presets:
+  nrk_season_episode:
+    overrides:
+      season_number_padded: "{ %pad_zero( %int(season_number), 2) }"
+      episode_number_padded: "{ %pad_zero( %int(episode_number), 2) }"
+
+  "NRK TV Show":
+    preset:
+      - "jellyfin_tv_show_by_date"
+      - "nrk_season_episode"
+    overrides:
+      tv_show_directory: "/tv_shows"
+      # Optional: include the "Only Recent" preset and set a default window here,
+      # then override per run with `sync --only-recent-days N`.
+      # only_recent_date_range: "30days"

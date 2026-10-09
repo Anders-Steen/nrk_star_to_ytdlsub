@@ -1,0 +1,33 @@
+[project]
+name = "nrk-star-to-ytdlsub"
+version = "0.1.0"
+description = "Sync NRK TV/Radio favourites to a ytdl-sub subscriptions file"
+readme = "README.md"
+authors = [
+    { name = "Anders Steen", email = "anders@accountflow.no" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "requests>=2.34.2",
+    "pyyaml>=6.0.2",
+]
+
+[project.optional-dependencies]
+login = [
+    "playwright>=1.49.0",
+]
+
+[project.scripts]
+nrk-star-to-ytdlsub = "nrk_star_to_ytdlsub:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "debugpy>=1.8.22",
+    "ipython>=9.17.1",
+    "pdbpp>=0.12.1",
+    "pytest>=8.3.4",
+]

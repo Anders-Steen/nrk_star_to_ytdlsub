@@ -1,0 +1,39 @@
+# Project-local Helix config: debug this tool with debugpy.
+#
+# debugpy is a dev dependency, so the project venv must be active when Helix is
+# started; the adapter below runs `python -m debugpy.adapter`, and debugpy then
+# launches the debuggee with that same interpreter.
+#
+# In Helix:
+#   space G b            toggle a breakpoint on the current line
+#   space G l            launch -> pick a template (nrk-login / nrk-sync / program)
+#   space G c            continue
+#   space G n / i / o    step over / into / out
+#   space G v            show variables
+#   space G t            terminate
+#   space G C-c / C-l    edit condition / log message on a breakpoint
+
+[[language]]
+name = "python"
+
+[language.debugger]
+name = "debugpy"
+transport = "stdio"
+command = ".venv/bin/python"
+args = ["-m", "debugpy.adapter"]
+
+[[language.debugger.templates]]
+name = "nrk-login"
+request = "launch"
+args = { module = "nrk_star_to_ytdlsub", args = ["login"], justMyCode = false }
+
+[[language.debugger.templates]]
+name = "nrk-sync"
+request = "launch"
+args = { module = "nrk_star_to_ytdlsub", args = ["sync", "--dry-run"], justMyCode = false }
+
+[[language.debugger.templates]]
+name = "program"
+request = "launch"
+completion = [ { name = "program", completion = "filename" } ]
+args = { program = "{0}", justMyCode = false }
